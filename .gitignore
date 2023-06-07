@@ -125,6 +125,7 @@ celerybeat.pid
 env/
 venv/
 ENV/
+my_env/
 env.bak/
 venv.bak/
 
@@ -162,8 +163,14 @@ cython_debug/
 #wav files
 *.wav
 
+# csv files at data
+data/*.csv
+
 # Folders
 data/DEMOS
 data/NEU
+
+# Not share jupyter notebook yet
+*.ipynb
 
 

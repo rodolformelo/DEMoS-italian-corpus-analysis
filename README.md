@@ -1,13 +1,17 @@
 # DEMoS-italian-corpus-analysis
 
+# Under Construction
+
 This repository contains the my 2 cents analysis of the DEMoS (Italian emotional speech corpus) database to better understand the ML Approach described in the research paper titled "DEMoS: An Italian emotional speech corpus: Elicitation methods, machine learning, and perception" by Parada-Cabaleiro, E., Costantini, G., Batliner, A., Schmitt, M., & Schuller, B. W.
 
 ## About the Database
 
 The DEMoS database is a valuable resource for studying emotional speech in the Italian language. It provides researchers with a collection of annotated speech samples that can be used for various applications, such as emotion recognition, speech synthesis, and more. The database was created using specific elicitation methods and encompasses a wide range of emotional states.
 
-**APA Reference:**
+## References:
 Parada-Cabaleiro, E., Costantini, G., Batliner, A., Schmitt, M., & Schuller, B. W. (2020). DEMoS: An Italian emotional speech corpus: Elicitation methods, machine learning, and perception. Language Resources and Evaluation, 54, 341-383.
+
+Florian Eyben, Martin Wöllmer, Björn Schuller: “openSMILE - The Munich Versatile and Fast Open-Source Audio Feature Extractor”, Proc. ACM Multimedia (MM), ACM, Florence, Italy, ISBN 978-1-60558-933-6, pp. 1459-1462, 25.-29.10.2010.
 
 ## Database Download
 
@@ -16,7 +20,7 @@ The DEMoS database can be downloaded from the following link:
 
 ## Todo List
 
-- [x] Update Readme
+- [ ] Update Readme
 - [ ] Analysis
     - [ ] openSMILE ComParE features 
     - [ ] ML approach: corpus evaluation
