@@ -6,10 +6,12 @@ from sklearn.model_selection import KFold
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, recall_score
 from sklearn.preprocessing import LabelEncoder
 from tqdm import tqdm
 import json
+from pathlib import Path
+
 
 import warnings
 
@@ -174,8 +176,47 @@ def cross_validation(X, y, optimized_complexity, label_encoder, file_path, colum
         # Save the DataFrame as a CSV file
         df_new.to_csv(file_path, index=False)
 
+def createAggCVResult(folder_path):
+
+    # Initialize an empty list to store the results
+    results_list = []
+
+    # Iterate over the speaker IDs
+    for speaker_id in range(1, 70):
+        # Construct the file path
+        file_path = folder_path + f"CE_SpeakerID_{speaker_id}_TrainDevTest_Framework.csv"
+        
+        # Check if the file exists
+        if Path(file_path).is_file():
+            # Read the CSV file
+            df = pd.read_csv(file_path)
+            
+            # Filter the "Dataset" column to "test"
+            df_test = df[df["Dataset"] == "test"]
+            
+            # Get the unique classes from y_true and y_pred
+            classes = df_test["y_true"].unique()
+            
+            # Initialize a dictionary to store the recall for each class
+            recall_dict = {"speaker_id": speaker_id}
+            
+            # Calculate the recall for each class
+            for cls in classes:
+                y_true = df_test["y_true"] == cls
+                y_pred = df_test["y_pred"] == cls
+                recall = recall_score(y_true, y_pred)
+                recall_dict[cls] = recall
+            
+            # Append the recall dictionary to the results list
+            results_list.append(recall_dict)
+
+    # Convert the results list to a DataFrame
+    result_df = pd.DataFrame(results_list)
+    result_df.to_csv(folder_path + 'AggCVResult.csv')
+
 
 def main():
+    
     # Path to the DEMoS dataset
     file_path_demos = "data\DEMoS_summary_scaled.csv"
 
@@ -208,6 +249,11 @@ def main():
         # Save cross_validation_results results
         file_path_result_cv = f"results/corpus_evaluation/CE_SpeakerID_{speaker_id}_CV_Framework.csv"
         cross_validation(X, y, complexity, label_encoder, file_path_result_cv, columns_to_drop)
+    
+    
+    # Create AGG Result from Cross Validation Analysis
+    folder_path = "results/corpus_evaluation/"
+    createAggCVResult(folder_path)
 
 if __name__ == '__main__':
     main()
